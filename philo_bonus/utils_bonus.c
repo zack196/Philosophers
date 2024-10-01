@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 05:48:15 by zel-oirg          #+#    #+#             */
+/*   Updated: 2024/10/01 05:48:16 by zel-oirg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 
 int	get_int(sem_t *sem, int *val)
@@ -33,7 +45,7 @@ void	ft_sleep(unsigned int slp, t_table *table)
 }
 
 void	routine_write(t_philo *philo, char *str)
-{ 
+{
 	sem_wait(philo->table->write_sem);
 	printf("%ld %d %s\n", now() - philo->table->start_time, philo->id, str);
 	if (*str != 'd')
@@ -52,12 +64,12 @@ long	ft_long(char *nb)
 	if (nb[i] == '-' || nb[i] == '+')
 		if (nb[i++] == '-')
 			return (0);
-	while ('0' <= nb[i] && nb[i] <= '9')
+	while ('0' <= nb[i] && nb[i] <= '9' && l <= INT_MAX)
 	{
 		l = l * 10 + (nb[i] - '0');
 		i++;
 	}
-	if (nb[i])
+	if (nb[i] || l > INT_MAX)
 		return (0);
 	return (l);
 }

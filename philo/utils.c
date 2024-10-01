@@ -1,13 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 03:33:38 by zel-oirg          #+#    #+#             */
+/*   Updated: 2024/10/01 03:33:39 by zel-oirg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
-
-// void	ft_sleep(long ms)
-// {
-// 	long	time_now;
-
-// 	time_now = now();
-// 	while (now() - time_now < ms)
-// 		usleep(50);
-// }
 
 void	ft_sleep(unsigned int slp, t_table *table)
 {

@@ -4,13 +4,14 @@ CFLAG = -Wall -Wextra -Werror #-fsanitize=thread -g3
 
 SRC = main_bonus.c \
 	  utils_bonus.c \
-	  philo_routine_monitor_bonus.c 
+	  philo_routine_monitor_bonus.c \
+	  init.c
 
 OBJ = $(SRC:.c=.o)
 
 all:$(NAME)
 
-%.o:%.c philo.h
+%.o:%.c philo_bonus.h
 	$(CC) $(CFLAG) -c $< -o $@
 
 $(NAME):$(OBJ)
