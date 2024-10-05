@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 03:33:50 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/01 03:34:53 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:38:06 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	table = philo->table;
 	if (table->nbr_philos == 1)
-		return (ft_sleep(table->t2d, table), NULL);
+		return (ft_sleep(table->t2d, table), record(philo, "died"), NULL);
 	if (philo->id % 2 == 0)
 		ft_sleep(30, table);
-	while (!get_int(&table->table_mtx, &table->finish_sim))
+	while (!get_int(table->table_mtx, &table->finish_sim))
 	{
 		eat(philo);
-		if (table->max_meals > 0 && philo->meal_count >= table->max_meals)
+		if (table->max_meals > 0 && get_int(&philo->dead_mtx, &philo->meal_count) >= table->max_meals)
 		{
-			set_int(&table->table_mtx, &philo->is_done, 1);
+			set_int(table->table_mtx, &philo->is_done, 1);
 			break ;
-		}
+		}	
 		record(philo, "is sleeping");
 		ft_sleep(table->t2s, table);
 		record(philo, " is thinking");

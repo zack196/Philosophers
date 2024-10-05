@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 03:36:09 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/01 06:05:57 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/04 10:43:31 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	all_philo_full(t_table *table)
 	while (++i < table->nbr_philos)
 	{
 		philo = &table->philos[i];
-		if (get_int(&table->table_mtx, &philo->is_done))
+		if (get_int(table->table_mtx, &philo->is_done))
 			full++;
 	}
 	if (full == table->nbr_philos)
 	{
-		set_int(&table->table_mtx, &table->finish_sim, 1);
+		set_int(table->table_mtx, &table->finish_sim, 1);
 		return (1);
 	}
 	return (0);
@@ -48,10 +48,8 @@ int	one_philo_die(t_table *table)
 		delta_t = now() - philo->last_meal_time;
 		if (delta_t > table->t2d && !philo->is_done)
 		{
-			set_int(&table->table_mtx, &table->finish_sim, 1);
-			philo->table->time_of_death = delta_t
-				+ philo->last_meal_time - philo->table->start_time;
-			philo->table->dead_philo_id = philo->id;
+			record(philo, "died");
+			set_int(table->table_mtx, &table->finish_sim, 1);
 			pthread_mutex_unlock(&philo->dead_mtx);
 			return (1);
 		}
@@ -62,6 +60,8 @@ int	one_philo_die(t_table *table)
 
 void	monitoring(t_table *table)
 {
+	if (table->nbr_philos == 1)
+		return ;
 	while (1)
 	{
 		if (all_philo_full(table) || one_philo_die(table))

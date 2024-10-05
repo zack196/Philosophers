@@ -1,11 +1,12 @@
 NAME = philo_bonus
 CC = cc 
-CFLAG = -Wall -Wextra -Werror #-fsanitize=thread -g3
+CFLAG = -Wall -Wextra -Werror -pthread  -fsanitize=thread -g3
 
 SRC = main_bonus.c \
 	  utils_bonus.c \
 	  philo_routine_monitor_bonus.c \
-	  init.c
+	  init_bonus.c \
+	  geters_seters_bonus.c
 
 OBJ = $(SRC:.c=.o)
 

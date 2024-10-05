@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 03:41:18 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/01 04:12:46 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/04 10:53:13 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,20 @@ int	init_mtx(t_table *table)
 	int	i;
 
 	i = -1;
+	table->table_mtx = malloc(sizeof (pthread_mutex_t));
+	if (!table->table_mtx)
+		return (1);
+	table->record_mtx = malloc(sizeof (pthread_mutex_t));
+	if (!table->record_mtx)
+		return (1);
 	while (++i < table->nbr_philos)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL)
 			|| pthread_mutex_init(&table->philos[i].dead_mtx, NULL))
 			return (1);
 	}
-	if (pthread_mutex_init(&table->table_mtx, NULL)
-		|| pthread_mutex_init(&table->record_mtx, NULL))
+	if (pthread_mutex_init(table->table_mtx, NULL)
+		|| pthread_mutex_init(table->record_mtx, NULL))
 		return (1);
 	return (0);
 }
@@ -82,9 +88,11 @@ int	init_table(t_table *table, char **av)
 		return (printf("error argument\n"), 0);
 	table->finish_sim = 0;
 	table->time_of_death = -1;
+	table->table_mtx = NULL;
+	table->record_mtx = NULL;
 	table->philos = malloc(sizeof (t_philo) * table->nbr_philos);
 	if (!table->philos)
-		return (free(table->philos), printf("error malloc\n"), 0);
+		return (printf("error malloc\n"), 0);
 	table->forks = malloc(sizeof (pthread_mutex_t) * table->nbr_philos);
 	if (!table->forks)
 		return (free(table->philos), printf("error malloc\n"), 0);

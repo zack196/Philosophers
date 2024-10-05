@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 05:49:44 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/01 06:05:13 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:12:46 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ typedef struct s_table
 
 struct s_philo
 {
-	int			id;
-	int			meal_count;
-	int			done;
-	long		last_meal_time;
-	t_table		*table;
-	pid_t		pid;
-	pthread_t	monitor_th;
+	int				id;
+	_Atomic int		meal_count;
+	_Atomic int		done;
+	_Atomic long	last_meal_time;
+	t_table			*table;
+	pid_t			pid;
+	sem_t			*philo_sem;
+	pthread_mutex_t	philo_mtx;
+	pthread_t		monitor_th;
 };
 
 void	eat(t_philo *philo);
@@ -63,5 +65,11 @@ void	clean_up(t_table *table);
 void	monitor_table(t_table *table);
 int		init_table(t_table *table, char **av);
 int		philosophers(t_table *table);
+
+int get_int(sem_t *sem, int *dest);
+long    get_long(sem_t *sem, long *dest);
+void    set_int(sem_t *sem, int *dest, int val);
+void    set_long(sem_t *sem, long *dest, long val);
+
 
 #endif

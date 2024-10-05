@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 05:51:46 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/01 06:04:59 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/05 08:34:10 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	clean_up(t_table *table)
 
 void	philo_feast(t_table *table)
 {
-	int		i;
-	t_philo	*philo;
+	int			i;
+	t_philo		*philo;
 
 	i = -1;
 	while (++i < table->nbr_philos)
@@ -43,13 +43,15 @@ void	philo_feast(t_table *table)
 		philo->pid = fork();
 		if (philo->pid == -1)
 		{
-			printf("error creating a process\n");
 			while (--i >= 0)
 				kill(table->philos[i].pid, SIGKILL);
-			return (clean_up(table));
+			return ((void)printf("error creating a process\n"));
 		}
 		else if (philo->pid == 0)
+		{
+			philo->last_meal_time = now();
 			routine(philo);
+		}
 	}
 	monitor_table(table);
 }

@@ -6,7 +6,7 @@
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 03:35:19 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/01 06:05:47 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/04 10:34:31 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_table
 	long			time_of_death;
 	int				dead_philo_id;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	table_mtx;
-	pthread_mutex_t	record_mtx;
+	pthread_mutex_t	*table_mtx;
+	pthread_mutex_t	*record_mtx;
 	t_philo			*philos;
 }	t_table;
 

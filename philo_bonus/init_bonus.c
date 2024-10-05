@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zel-oirg <zel-oirg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 06:00:58 by zel-oirg          #+#    #+#             */
-/*   Updated: 2024/10/01 06:04:51 by zel-oirg         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:52:27 by zel-oirg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	init_table(t_table *table, char **av)
 		table->max_meal = ft_long(av[5]);
 	if (!(table->nbr_philos && table->t2d && table->t2e
 			&& table->t2s && table->max_meal))
-		return (printf("argumet should be int\n"));
+		return (printf("argumet should be int\n"), 0);
 	table->philos = NULL;
 	if (init_sem(table))
 		return (clean_up(table), printf("error init semaphores\n"), 0);
